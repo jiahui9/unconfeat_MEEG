@@ -50,8 +50,11 @@ def proc(image,idx,reference_im):
     imarray = np.asarray(im).copy()
     imarray[np.where(imarray > 245)]  = 0
     im = Image.fromarray(imarray)
+    # 这行代码是把原来的图片变模糊
     im = im.filter(ImageFilter.GaussianBlur(4))
+    #是把噪音变模糊
     scramble_im = scramble_im.filter(ImageFilter.GaussianBlur(4))
+    #根据一定的比例，把图片的噪音的叠加
     blended = Image.blend(im,scramble_im,alpha = .5)
     
     temp = image.replace('\\','/').split('/')
